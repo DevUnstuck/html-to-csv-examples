@@ -10,12 +10,12 @@ console.info('Date,Points,Status,Feature,Title,Category');
 
 // Loop through each row and extract the data points.
 for (const sfdiv in sfdivs) {
-    const points = sfdivs[sfdiv]?.querySelector('[data-number]').textContent.replaceAll(',', '');
-    const date = sfdivs[sfdiv]?.querySelector('span[title]').textContent.replaceAll(',', '');
+    const points = sfdivs[sfdiv]?.querySelector('.coveo-idea-points').textContent.replaceAll(',', '');
+    const date = sfdivs[sfdiv]?.querySelector('[data-field="@sfcreateddate"] span[title]')?.textContent.replaceAll(',', '');
     const feature = sfdivs[sfdiv]?.querySelector('a.CoveoResultLink').title.replaceAll(',', '');
-    const category = sfdivs[sfdiv]?.querySelectorAll('.coveo-cloud-category')[0].textContent.replaceAll(/[^a-zA-Z0-9:]/g,'');
-    const title = sfdivs[sfdiv]?.querySelectorAll('.coveo-cloud-category span[data-field]')[1].textContent.title?.replaceAll(',', '');
-    const status = sfdivs[sfdiv]?.querySelector('span[data-field="@sfstatus_secondary__c"]').textContent.replaceAll(',', '');
+    const category = sfdivs[sfdiv]?.querySelector('.coveo-cloud-category').textContent.replaceAll(/[^a-zA-Z0-9:]/g,'');
+    let status = sfdivs[sfdiv]?.querySelector('.primary-status').textContent.replaceAll(/[^a-zA-Z0-9:]/g,'');
+    status = status + ' - ' + sfdivs[sfdiv]?.querySelector('.secondary-status').textContent.replaceAll(/[^a-zA-Z0-9:]/g,'');
     // Output the data in CSV format.
-    console.info(`${date},${points},${status},${feature},${title},${category}`);
+    console.info(`${date},${points},${status},${feature},${category}`);
 }
